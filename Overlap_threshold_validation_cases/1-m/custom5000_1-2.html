@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Dimensions</title>
+    <style>
+        #text {
+            font-family: Times New Roman, serif;
+            font-size: 16px;
+            visibility: hidden;
+            position: absolute;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="4000" height="2000" style="border:1px solid #d3d3d3;">
+    </canvas>
+    <div id="text"></div>
+    <p id="result"></p>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.font = "16px Times new roman";
+
+
+        let dpr = window.devicePixelRatio; 
+
+        let { width: cssWidth, height: cssHeight } = canvas.getBoundingClientRect();
+        console.log(cssWidth, cssHeight)
+
+        canvas.style.width = canvas.width + "px";
+        canvas.style.height = canvas.height + "px";
+
+        canvas.width = dpr * cssWidth;
+        canvas.height = dpr * cssHeight;
+        ctx.scale(dpr, dpr);
+
+        ctx.font = "16px Times new roman";
+
+        ctx.lineWidth = 0.1;
+
+        OFFSETX = -300
+        OFFSETY = 500
+
+        function center(arr) {
+            arr = [arr[0] - OFFSETX, arr[1] - OFFSETY]
+            return arr
+        }
+
+        selected = [2684, 599, 832];
+
+        node_anc1 = [454, 913];
+        node_anc2 = [471, 904];
+        node_anc3 = [535, 939];
+        
+        node_anc1 = center(node_anc1);
+        node_anc2 = center(node_anc2);
+        node_anc3 = center(node_anc3);
+
+
+        lab1txt = "artoec";
+        lab2txt = "rasehd";
+        lab3txt = "ioapote";
+
+        lab1anc = [4.550000000000000000e+02,9.234781005859374545e+02]
+        lab1anc = center(lab1anc);
+        lab2anc = [4.720000000000000000e+02,9.160746582031249545e+02]
+        lab2anc = center(lab2anc);
+        lab3anc = [4.870750002861022949e+02,9.345888183593749545e+02];
+        lab3anc = center(lab3anc);
+
+        ctx.fillRect(node_anc1[0] - 1, node_anc1[1] - 1, 2, 2);
+        ctx.fillRect(node_anc2[0] - 1, node_anc2[1] - 1, 2, 2);
+        ctx.fillRect(node_anc3[0] - 1, node_anc3[1] - 1, 2, 2);
+
+        ctx.fillStyle = "#ff0000";
+        x1 = lab1anc[0];
+        y1 = lab1anc[1];
+        for (let j = 0; j < lab1txt.length; j++) {
+            let char = lab1txt[j];
+            ctx.fillText(char, x1, y1);
+            x1 += ctx.measureText(char).width;
+        }
+
+        ctx.fillStyle = "#000000";
+        x2 = lab2anc[0];
+        y2 = lab2anc[1];
+        for (let j = 0; j < lab2txt.length; j++) {
+            let char = lab2txt[j];
+            ctx.fillText(char, x2, y2);
+            x2 += ctx.measureText(char).width;
+        }
+
+        ctx.fillStyle = "#000000"
+        x3 = lab3anc[0];
+        y3 = lab3anc[1];
+        for (let j = 0; j < lab3txt.length; j++) {
+            let char = lab3txt[j];
+            ctx.fillText(char, x3, y3);
+            x3 += ctx.measureText(char).width;
+        }
+
+
+        //ctx.fillRect(1000, 1000, 20, 20);
+    </script>
+</body>
+
+</html>

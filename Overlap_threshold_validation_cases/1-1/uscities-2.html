@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Dimensions</title>
+    <style>
+        #text {
+            font-family: Times New Roman, serif;
+            font-size: 16px;
+            visibility: hidden;
+            position: absolute;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="4000" height="2000" style="border:1px solid #d3d3d3;">
+    </canvas>
+    <div id="text"></div>
+    <p id="result"></p>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.font = "16px Times new roman";
+
+
+        let dpr = window.devicePixelRatio; 
+
+        let { width: cssWidth, height: cssHeight } = canvas.getBoundingClientRect();
+        console.log(cssWidth, cssHeight)
+
+        canvas.style.width = canvas.width + "px";
+        canvas.style.height = canvas.height + "px";
+
+        canvas.width = dpr * cssWidth;
+        canvas.height = dpr * cssHeight;
+        ctx.scale(dpr, dpr);
+
+        ctx.font = "16px Times new roman";
+
+        ctx.lineWidth = 0.1;
+
+        selected = [346, 523]
+
+        node_anc1 = [1319.4, 851.0]
+        node_anc2 = [1308.3999999999996, 832.6]
+
+        lab1txt = "Five Finger"
+        lab2txt = "Juneau" 
+
+        lab1anc = [1.320400000000000091e+03,8.548161621093750000e+02]
+        lab2anc = [1.309399999999999636e+03,8.441606445312500000e+02]
+
+        ctx.fillRect(node_anc1[0] - 1, node_anc1[1] - 1, 2, 2);
+        ctx.fillRect(node_anc2[0] - 1, node_anc2[1] - 1, 2, 2);
+
+        ctx.fillStyle = "#0000ff";
+        x1 = lab1anc[0];
+        y1 = lab1anc[1];
+        for (let j = 0; j < lab1txt.length; j++) {
+            let char = lab1txt[j];
+            ctx.fillText(char, x1, y1);
+            x1 += ctx.measureText(char).width;
+        }
+
+        ctx.fillStyle = "#000000";
+        x2 = lab2anc[0];
+        y2 = lab2anc[1];
+        for (let j = 0; j < lab2txt.length; j++) {
+            let char = lab2txt[j];
+            ctx.fillText(char, x2, y2);
+            x2 += ctx.measureText(char).width;
+        }
+
+
+        //ctx.fillRect(1000, 1000, 20, 20);
+    </script>
+</body>
+
+</html>
